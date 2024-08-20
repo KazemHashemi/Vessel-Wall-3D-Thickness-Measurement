@@ -17,7 +17,6 @@ for phtm, res in zip(phantoms, spatial_res):
     nx = int(np.round(fov_x/res))
     ny = int(np.round(fov/res))
     nz = ny
-    out = 0.5* np.ones((nx,ny,nz))
 
     cx = nx
     cy = ny/2
