@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LightSource
 import os
 
-out_path = '/v/ai/nobackup/shashemi/VWI_DL/Thickness_3D/phantom/'
-
 r1 = 2
 r2 = 1.5
 r3 = 1.0
@@ -18,12 +16,6 @@ fov = 1.05*2*(max([r1,r2,r3])+d)
 fov_x = 1.05*(max([r1,r2,r3])+d)
 
 for phtm, res in zip(phantoms, spatial_res):
-
-    if not os.path.exists(out_path + phtm + '/'):
-        os.makedirs(out_path + phtm + '/')
-
-    out_file = out_path + phtm + '/' + phtm + '_seg.npy'
-    
 
     nx = int(np.round(fov_x/res))
     ny = int(np.round(fov/res))
@@ -42,9 +34,6 @@ for phtm, res in zip(phantoms, spatial_res):
     out[lumen < 0] = 0
     out[wall >= 0] = 1
     msk = ((lumen>=0) & (wall <0))
-
-
-    np.save(out_file, out)
     
     ax1 = plt.figure().add_subplot(projection='3d')
     ls = LightSource(90, 30)
