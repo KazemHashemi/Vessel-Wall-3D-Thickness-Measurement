@@ -19,7 +19,6 @@ for phtm, res in zip(phantoms, spatial_res):
     nx = int(np.round(fov_xy/res))
     ny = nx
     nz = int(np.round(fov_z/res))
-    out = 0.5* np.ones((nx,ny,nz))
 
     cx = nx
     cy = ny
@@ -31,9 +30,6 @@ for phtm, res in zip(phantoms, spatial_res):
     lumen = lumen_xy**2 + (Z + 0.5 - cz)**2 - (r/res)**2
     wall = lumen_xy**2 + (Z + 0.5 - cz)**2 - ((r+d)/res)**2
     msk = ((lumen>=0) & (wall <0))
-    
-    out[lumen < 0] = 0
-    out[wall >= 0] = 1
 
     
     ax1 = plt.figure().add_subplot(projection='3d')
