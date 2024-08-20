@@ -20,7 +20,6 @@ for phtm, res in zip(phantoms, spatial_res):
     nx = int(np.round(fov_x/res))
     ny = int(np.round(fov/res))
     nz = ny
-    out = 0.5* np.ones((nx,ny,nz))
 
     cx = nx
     cy = ny/2
@@ -31,8 +30,6 @@ for phtm, res in zip(phantoms, spatial_res):
     lumen = (res*(X + 0.5 - cx)/r1)**2 + (res*(Y + 0.5 - cy)/r2)**2 + (res*(Z + 0.5 - cz)/r3)**2 - 1
     wall = (res*(X + 0.5 - cx)/(r1+d))**2 + (res*(Y + 0.5 - cy)/(r2+d))**2 + (res*(Z + 0.5 - cz)/(r3+d))**2 - 1
 
-    out[lumen < 0] = 0
-    out[wall >= 0] = 1
     msk = ((lumen>=0) & (wall <0))
     
     ax1 = plt.figure().add_subplot(projection='3d')
@@ -45,6 +42,4 @@ for phtm, res in zip(phantoms, spatial_res):
     ax1.set_zticks([])
     ax1.set_axis_off()
     ax1.view_init(elev=30,azim=45)
-    #print(dir(ax1.patch))
-    #print(dir(ax1.patches))
     plt.show()
